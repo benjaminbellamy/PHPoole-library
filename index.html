@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Phpoole-library by Narno</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Phpoole-library</h1>
+        <p>A PHP library to generate a static website. WIP.</p>
+
+        <p class="view"><a href="https://github.com/Narno/PHPoole-library">View the Project on GitHub <small>Narno/PHPoole-library</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Narno/PHPoole-library/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Narno/PHPoole-library/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Narno/PHPoole-library">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><em>PHPoole-library</em> is a static website generator built on PHP, inspired by <a href="http://jekyllrb.com/">Jekyll</a> and <a href="http://gohugo.io/">Hugo</a>.</p>
+
+<p>It converts <a href="http://daringfireball.net/projects/markdown/">Markdown</a> files into a static HTML web site, with the help of <a href="http://twig.sensiolabs.org">Twig</a>, a flexible and fast template engine.</p>
+
+<p>You can easily create a blog, a personal website, a simple corporate website, etc.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>No database, files only</li>
+<li>Fully configurable (Through options and plugins system)</li>
+<li>HTML templates (<a href="http://twig.sensiolabs.org/doc/templates.html">Twig</a>)</li>
+<li>Menu</li>
+<li>Taxonomy (Vocablulary &gt; Term &gt; pages collection)</li>
+</ul>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<p>Please see the <a href="composer.json">composer.json</a> file.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Run the following Composer command:</p>
+
+<pre><code>$ composer require narno/phpoole-library:1.0.X-dev
+</code></pre>
+
+<h2>
+<a id="demo" class="anchor" href="#demo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo</h2>
+
+<p>Try the <a href="https://github.com/Narno/PHPoole-demo">demo</a></p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="basic-usage" class="anchor" href="#basic-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic usage</h3>
+
+<p>First create a new directory (ie "mywebsite") with the following files structure:</p>
+
+<pre><code>./mywebsite
+|- content             &lt;- Contains the Mardown files
+|  |- Blog             &lt;- A 'section' named "Blog"
+|  |  |- Post 1.md     &lt;- A content page
+|  |  \- Post 2.md
+|  |- Project          &lt;- A 'section' named "Project"
+|  |  |- Project 1.md
+|  |  \- Project 2.md
+|  \- About.md
+|- layouts             &lt;- Contains the Twig templates
+|  |- _default         &lt;- Contains the default templates
+|  |  |- list.html     &lt;- Used by a node type 'list'
+|  |  |- page.html     &lt;- Used by a node type 'page'
+|  |  |- taxonomy.html &lt;- Used by a node type 'taxonomy'
+|  |  \- terms.html    &lt;- Used by a node type 'terms'
+|  |- index.html       &lt;- Used by the node type 'homepage'
+\- static              &lt;- Contains the static files
+</code></pre>
+
+<p>Then create and run the following PHP script:</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">require_once</span> <span class="pl-s"><span class="pl-pds">'</span>vendor/autoload.php<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">PHPoole\PHPoole</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$phpoole</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">PHPoole</span>(</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>./mywebsite<span class="pl-pds">'</span></span>,  <span class="pl-c">// The source directory</span></span>
+<span class="pl-s1">    <span class="pl-c1">null</span>,           <span class="pl-c">// The destination directory</span></span>
+<span class="pl-s1">    [               <span class="pl-c">// Options array</span></span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>site<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>title<span class="pl-pds">'</span></span>   <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>My website<span class="pl-pds">"</span></span>,                        <span class="pl-c">// The Site title</span></span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>baseurl<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>http://localhost/mywebsite/_site/<span class="pl-pds">'</span></span>, <span class="pl-c">// The Site base URL</span></span>
+<span class="pl-s1">        ],</span>
+<span class="pl-s1">    ]</span>
+<span class="pl-s1">);</span>
+<span class="pl-s1"><span class="pl-smi">$phpoole</span><span class="pl-k">-&gt;</span>build();</span></pre></div>
+
+<p>The result is a new static website created in <em>./mywebsite/_site</em>.</p>
+
+<h3>
+<a id="page-example" class="anchor" href="#page-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Page example</h3>
+
+<div class="highlight highlight-yml"><pre><span class="pl-s">-<span class="pl-s">--</span></span>
+<span class="pl-s"><span class="pl-ent">title:</span> <span class="pl-s"><span class="pl-pds">"</span>The title<span class="pl-pds">"</span></span></span>
+<span class="pl-s"><span class="pl-ent">date:</span> <span class="pl-s"><span class="pl-pds">"</span>2013-01-01<span class="pl-pds">"</span></span></span>
+<span class="pl-s"><span class="pl-ent">myvar:</span> <span class="pl-s"><span class="pl-pds">"</span>My varm<span class="pl-pds">"</span></span></span>
+<span class="pl-s">-<span class="pl-s">--</span></span>
+Markdown page content.</pre></div>
+
+<h3>
+<a id="layout-example" class="anchor" href="#layout-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layout example</h3>
+
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">h1</span>&gt;{{ page.title }}&lt;/<span class="pl-ent">h1</span>&gt;
+&lt;<span class="pl-ent">span</span>&gt;{{ page.date|date("j M Y") }}&lt;/<span class="pl-ent">span</span>&gt;
+&lt;<span class="pl-ent">b</span>&gt;{{ page.content }}&lt;/<span class="pl-ent">p</span>&gt;
+&lt;<span class="pl-ent">b</span>&gt;{{ page.myvar }}&lt;/<span class="pl-ent">p</span>&gt;</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Narno">Narno</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
